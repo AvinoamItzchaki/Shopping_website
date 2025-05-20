@@ -7,13 +7,7 @@ import {useAuth} from "./AuthContext";
 import "./css/HandleDB.css";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyARM7hd7DpaD1F3QHnEp5iiA77_SvWqGgY",
-    authDomain: "task3shop.firebaseapp.com",
-    projectId: "task3shop",
-    storageBucket: "task3shop.firebasestorage.app",
-    messagingSenderId: "128266362924",
-    appId: "1:128266362924:web:869e998761eb5453813189",
-    measurementId: "G-816SWHK9N6"
+    
 };
 
 const app = initializeApp(firebaseConfig);
