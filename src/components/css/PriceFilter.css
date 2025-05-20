@@ -1,0 +1,62 @@
+
+.buttonFilterProducts {
+    left: 45%;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    gap: 2rem;
+}
+
+.buttonFilterProducts:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.buttonFilterProducts:active {
+    background-color: #004085;
+    transform: scale(0.95);
+}
+
+.buttonBackToNormal {
+    left: 45%;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #48aa65;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    gap: 2rem;
+}
+
+.buttonBackToNormal:hover {
+    background-color: #ffbb63;
+    transform: scale(1.05);
+}
+
+.buttonBackToNormal:active {
+    background-color: #bc6900;
+    transform: scale(0.95);
+}
+
+.divFilter{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.labelFilter{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.inputFilter{
+    width: 176px;
+}

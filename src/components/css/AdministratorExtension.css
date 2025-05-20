@@ -1,0 +1,52 @@
+.shoppingList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.shoppingList1 {
+    background-color: #c0fadb;
+}
+
+.title{
+    text-align: center;
+    direction: rtl;
+}
+.right{
+    text-align: right;
+    font-weight: lighter;
+    direction: rtl;
+}
+.end{
+    font-family: "Guttman-Aram", fantasy;
+    font-size: 48px;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #ffd21b, #ea6800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.user-table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.user-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.user-table .user-row:nth-child(even) {
+    background-color: #ededed;
+}
+
+.user-table .user-row:hover {
+    background-color: #00ffe9;
+}

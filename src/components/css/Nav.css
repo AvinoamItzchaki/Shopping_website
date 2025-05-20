@@ -1,0 +1,34 @@
+#navList {
+    display: flex;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 5px double #003059;
+    list-style: none;
+}
+
+.navItem {
+    margin-right: 50px;
+    font-size: 24px;
+    border-radius: 10%;
+    border: 4px solid #003059;
+    background-color: #a3e6fa;
+    padding: 5px;
+}
+
+
+.navItem :hover {
+    background-color: #f8ec80;
+    color: #a3e6fa;
+}
+
+.navItem:active {
+    transform: scale(0.95);
+}
+
+.navLink {
+    text-decoration: none;
+    color: #003059;
+}
+.navPage{
+    background-color: #ffffff;
+}
