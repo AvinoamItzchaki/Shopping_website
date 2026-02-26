@@ -1,39 +1,79 @@
 import { Link } from "react-router-dom";
-import  "./css/Nav.css";
-import {useAuth} from "./AuthContext";
+import { useAuth } from "./AuthContext";
 
 function NavBar() {
-    const {username, setUsername,showOtherPages, setShowOtherPages}= useAuth();
+  const { username, setUsername, showOtherPages, setShowOtherPages } = useAuth();
 
-    const logout = () => {
-        setUsername("");
-        setShowOtherPages("false");
-    }
+  const logout = () => {
+    setUsername("");
+    setShowOtherPages("false");
+  };
 
-    return (
-        <nav className="navPage">
-            <ul id='navList'>
-                {showOtherPages === "true" &&(
-                    <>
-                        <li className='navItem'><Link className='navLink' to="/shop">Shop</Link></li>
-                        <li className='navItem'><Link className='navLink' to="/cart">Cart</Link></li>
-                        <li className='navItem'><Link className='navLink' to="/about">About</Link></li>
-                        <li className='navItem'><Link className='navLink' to="/statistics">Statistics</Link></li>
-                        {username === "avinoam" && (
-                            <li className='navItem'><Link className='navLink' to="/administrator">Administrator
-                                Extension</Link></li>
-                        )}
-                        <li className='navItem'><Link className='navLink' to="/feedbacks">Feedbacks</Link></li>
-                        <li className='navItem'>
-                            <button onClick={logout}>Exit</button>
-                        </li>
-                    </>
-                )}
-                <li className='navItem'><Link className='navLink' to="/login">Login</Link></li>
-                <li className='navItem'><Link className='navLink' to="/registration">Registration</Link></li>
-            </ul>
-        </nav>
-    );
+  const baseLinkClasses =
+    "inline-flex items-center rounded-xl px-3 py-1.5 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition";
 
+  return (
+    <nav className="bg-white border-b border-slate-200">
+      <div className="max-w-6xl mx-auto px-4">
+        <ul className="flex items-center gap-3 py-3">
+          {showOtherPages === "true" && (
+            <>
+              <li>
+                <Link className={baseLinkClasses} to="/shop">
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link className={baseLinkClasses} to="/cart">
+                  Cart
+                </Link>
+              </li>
+              <li>
+                <Link className={baseLinkClasses} to="/about">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link className={baseLinkClasses} to="/statistics">
+                  Statistics
+                </Link>
+              </li>
+              {username === "avinoam" && (
+                <li>
+                  <Link className={baseLinkClasses} to="/administrator">
+                    Administrator Extension
+                  </Link>
+                </li>
+              )}
+              <li>
+                <Link className={baseLinkClasses} to="/feedbacks">
+                  Feedbacks
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={logout}
+                  className="inline-flex items-center rounded-xl bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-800 transition"
+                >
+                  Exit
+                </button>
+              </li>
+            </>
+          )}
+          <li className="ml-auto">
+            <Link className={baseLinkClasses} to="/login">
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link className={baseLinkClasses} to="/registration">
+              Registration
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
 }
+
 export default NavBar;

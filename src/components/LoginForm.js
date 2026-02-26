@@ -1,144 +1,173 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import {useEffect, useState} from "react";
-import {CheckLogin, GetMoneyAmount, SetMoneyAmount} from "./HandleDB";
-import {Alert} from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { CheckLogin, GetMoneyAmount, SetMoneyAmount } from "./HandleDB";
 import { useAuth } from './AuthContext';
-import "./css/LoginForm.css"
-
 
 function LoginForm() {
-    const { username, setUsername } = useAuth();
-    const [password, setPassword] = useState('');
-    const [alert, setAlert] = useState("");
-    const [moneyAmount, setMoneyAmount] = useState(0);
-    const [initialAmountOfMoney, setInitialAmountOfMoney] = useState(0);
-    const {setShowOtherPages} = useAuth();
-    let sum = Number(initialAmountOfMoney) + Number(moneyAmount);
+  const { username, setUsername } = useAuth();
+  const [password, setPassword] = useState('');
+  const [alert, setAlert] = useState("");
+  const [moneyAmount, setMoneyAmount] = useState(0);
+  const [initialAmountOfMoney, setInitialAmountOfMoney] = useState(0);
+  const { setShowOtherPages } = useAuth();
+  let sum = Number(initialAmountOfMoney) + Number(moneyAmount);
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value)
-    }
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value)
-    }
-    const handleMoneyAmountChange = (event) => {
-        setMoneyAmount(event.target.value)
-    }
-    const loginAction = async (event) => {
-        setAlert(await CheckLogin(username, password));
-    }
-    const updateMoneyAmount = async (event) => {
-        setAlert(await SetMoneyAmount(moneyAmount));
-    }
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+  const handleMoneyAmountChange = (event) => {
+    setMoneyAmount(event.target.value);
+  };
+  const loginAction = async () => {
+    setAlert(await CheckLogin(username, password));
+  };
+  const updateMoneyAmount = async () => {
+    setAlert(await SetMoneyAmount(moneyAmount));
+  };
 
-    useEffect(() => {
-        const fetchMoneyAmount = async () => {
-            if (alert === "login-success") {
-                setShowOtherPages("true");
-                setInitialAmountOfMoney(await GetMoneyAmount());
-            }
-        };
-        fetchMoneyAmount();
-    }, [alert, setShowOtherPages]);
+  useEffect(() => {
+    const fetchMoneyAmount = async () => {
+      if (alert === "login-success") {
+        setShowOtherPages("true");
+        setInitialAmountOfMoney(await GetMoneyAmount());
+      }
+    };
+    fetchMoneyAmount();
+  }, [alert, setShowOtherPages]);
 
+  const alertBase =
+    "w-full rounded-xl px-4 py-3 text-sm border mb-4";
+  const alertDanger =
+    alertBase + " bg-rose-50 border-rose-200 text-rose-800";
+  const alertSuccess =
+    alertBase + " bg-emerald-50 border-emerald-200 text-emerald-800";
 
-    return (
-        <div className="login-form">
-            <br/>
-            {alert === "login-danger-username" && (
-                <Alert variant="danger" dismissible onClose={() => setAlert("")}>
-                    <Alert.Heading>Danger</Alert.Heading>
-                    <p>
-                        לא קיים שם משתמש כזה במערכת
-                    </p>
-                </Alert>
-            )}
-            {alert === "login-danger-password" && (
-                <Alert variant="danger" dismissible onClose={() => setAlert("")}>
-                    <Alert.Heading>Danger</Alert.Heading>
-                    <p>
-                        סיסמה שגויה
-                    </p>
-                </Alert>
-            )}
-            {alert === "login-success" && (
-                <Alert variant="success" dismissible onClose={() => {setPassword("")}}>
-                    <Alert.Heading>Well done!</Alert.Heading>
-                    <p>
-                        ההתחברות עברה בהצלחה, שהות נעימה
-                    </p>
-                    <p>
-                        אם תרצה תוכל להוסיף כסף לחשבון הבנק שלך על ידי התוית שנפתחה למטה
-                    </p>
-                    <p>
-                        הכסף הקיים בחשבון הבנק שלך יופיע מתחת להודעה ובנוסף גם סכום הכסף המלא שיהיה בחשבונך לאחר ההוספה
-                    </p>
-                </Alert>
-            )}
-            {alert === "updateMoneyAmount-success" && (
-                <Alert variant="success" dismissible onClose={() => setAlert("")}>
-                    <Alert.Heading>Well done!</Alert.Heading>
-                    <p>
-                        הוספת הכסף לחשבון עברה בהצלחה, שהות נעימה.
-                    </p>
-                </Alert>
-            )}
+  const primaryButton =
+    "inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2";
 
-            <h1>התחברות לאתר</h1>
+  const inputClasses =
+    "mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500";
 
-            {alert !== "login-success" && alert !== "updateMoneyAmount-success" && (
-                <>
-                    <label htmlFor="username">
-                        <h3>
-                            שם משתמש:
-                        </h3>
-                    </label>
-                    <br/>
-                    <input type="text" name="username" aria-describedby="usernameHelp"
-                           placeholder="Enter username" value={username} onChange={handleUsernameChange}/>
-                    <br/>
-                    <small id="usernameHelp" className="form-text text-muted">שם המשתמש צריך להיכתב עם אותיות באנגלית, מספרים או סימנים מיוחדים (ללא רווחים)</small>
+  return (
+    <div className="min-h-screen bg-slate-100">
+      <div className="max-w-md mx-auto px-4 py-12" dir="rtl">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 px-6 py-8">
+          {alert === "login-danger-username" && (
+            <div className={alertDanger}>
+              <h3 className="font-semibold mb-1">Danger</h3>
+              <p>לא קיים שם משתמש כזה במערכת</p>
+            </div>
+          )}
+          {alert === "login-danger-password" && (
+            <div className={alertDanger}>
+              <h3 className="font-semibold mb-1">Danger</h3>
+              <p>סיסמה שגויה</p>
+            </div>
+          )}
+          {alert === "login-success" && (
+            <div className={alertSuccess}>
+              <h3 className="font-semibold mb-1">Well done!</h3>
+              <p>ההתחברות עברה בהצלחה, שהות נעימה</p>
+              <p>אם תרצה תוכל להוסיף כסף לחשבון הבנק שלך על ידי התוית שנפתחה למטה</p>
+              <p>הכסף הקיים בחשבון הבנק שלך יופיע מתחת להודעה ובנוסף גם סכום הכסף המלא שיהיה בחשבונך לאחר ההוספה</p>
+            </div>
+          )}
+          {alert === "updateMoneyAmount-success" && (
+            <div className={alertSuccess}>
+              <h3 className="font-semibold mb-1">Well done!</h3>
+              <p>הוספת הכסף לחשבון עברה בהצלחה, שהות נעימה.</p>
+            </div>
+          )}
 
-                    <br/><br/>
-                    <label htmlFor="password">
-                        <h3>סיסמה:</h3>
-                    </label>
-                    <br/>
-                    <input type="password" name="password" placeholder="Password"
-                           value={password} onChange={handlePasswordChange}/>
-                    <br/><br/>
-                    <button type="submit" className="btn btn-primary"
-                            onClick={loginAction}>Submit
-                    </button>
-                </>
-            )}
+          <h1 className="text-2xl font-semibold text-slate-900 text-center mb-6">
+            התחברות לאתר
+          </h1>
 
-            {alert === "login-success" && (
-                <div className="right">
-                    <h1>סכום הכסף בחשבון כרגע {initialAmountOfMoney}.</h1>
-                    <h1>לאחר ההוספה הסכום יהיה: {sum}</h1>
-                    <br/>
-                    <label htmlFor="moneyAmount">
-                        <h3>
-                            סכום הכסף להכניס לחשבון
-                        </h3>
-                    </label>
-                    <br/>
-                    <input type="number" name="moneyAmount" placeholder="moneyAmount"
-                           value={moneyAmount} onChange={handleMoneyAmountChange}/>
-                    <br/>
-                    <button type="submit" className="btn btn-primary"
-                            onClick={updateMoneyAmount}>אישור ההוספה
-                    </button>
-                </div>
-            )}
+          {alert !== "login-success" && alert !== "updateMoneyAmount-success" && (
+            <>
+              <label className="block mb-4">
+                <h3 className="text-sm font-medium text-slate-800 mb-1">
+                  שם משתמש:
+                </h3>
+                <input
+                  type="text"
+                  name="username"
+                  aria-describedby="usernameHelp"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  className={inputClasses}
+                />
+                <small
+                  id="usernameHelp"
+                  className="mt-1 block text-xs text-slate-500"
+                >
+                  שם המשתמש צריך להיכתב עם אותיות באנגלית, מספרים או סימנים מיוחדים (ללא רווחים)
+                </small>
+              </label>
 
+              <label className="block mb-4">
+                <h3 className="text-sm font-medium text-slate-800 mb-1">
+                  סיסמה:
+                </h3>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  className={inputClasses}
+                />
+              </label>
 
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <br/><br/><br/><br/><br/><br/><br/>
-            <h></h>
+              <button
+                type="button"
+                className={primaryButton}
+                onClick={loginAction}
+              >
+                Submit
+              </button>
+            </>
+          )}
+
+          {alert === "login-success" && (
+            <div className="mt-6 text-right space-y-4">
+              <h1 className="text-sm text-slate-800">
+                סכום הכסף בחשבון כרגע {initialAmountOfMoney}.
+              </h1>
+              <h1 className="text-sm text-slate-800">
+                לאחר ההוספה הסכום יהיה: {sum}
+              </h1>
+
+              <label className="block">
+                <h3 className="text-sm font-medium text-slate-800 mb-1">
+                  סכום הכסף להכניס לחשבון
+                </h3>
+                <input
+                  type="number"
+                  name="moneyAmount"
+                  placeholder="moneyAmount"
+                  value={moneyAmount}
+                  onChange={handleMoneyAmountChange}
+                  className={inputClasses}
+                />
+              </label>
+
+              <button
+                type="button"
+                className={primaryButton + " mt-3"}
+                onClick={updateMoneyAmount}
+              >
+                אישור ההוספה
+              </button>
+            </div>
+          )}
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 export default LoginForm;

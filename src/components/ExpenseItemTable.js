@@ -1,63 +1,65 @@
-import './css/ExpenseItemTable.css'
 import React from 'react';
 import { Img } from 'react-image';
-import {AddItemToDB, DeletingSingleProduct} from "./HandleDB";
+import { AddItemToDB, DeletingSingleProduct } from "./HandleDB";
 
 function ExpenseItemTable(props) {
-    return (
-        <td>
-            <div className='expense-item'>
-                <Img
-                    src={props.image}
-                    alt={props.title}
-                    style={{width: "150px", height: "150px", objectFit: "cover", border: "1px solid #ccc"}}
-                />
-                <div className="full-row">
-                    <div className='expense-item__title'><h5>{props.title} </h5></div>
-                </div>
-                <div className="container">
-                    <div className="row">
-                        {props.isCart && (
-                            <strong> x {props.count}</strong>
-                        )}
-                    </div>
+  const handleAddToCart = () => {
+    AddItemToDB(props.image, props.title, props.price, props.category, props.brand);
+  };
 
-                    <div className="row">
-                        <div className='expense-item__price'><h3>{props.price}$</h3></div>
-                    </div>
+  const handleRemoveFromCart = () => {
+    const clearSingleProduct = async () => {
+      await DeletingSingleProduct(props.id);
+      props.updateCounter(prevState => prevState + 1);
+    };
+    clearSingleProduct();
+  };
 
-                    <div className="row">
-                        {!props.isCart && (
-                            <button className="buttonFilterProducts1"
-                                onClick={() => {
-                                    AddItemToDB(props.image, props.title, props.price, props.category, props.brand)
-                                    //alert('item added to cart!')
-                                }}
-                            >
-                                Add To Cart
-                            </button>
-                        )}
-                        {props.isCart && (
-                            <button className="buttonFilterProducts1"
-                                onClick={() => {
-                                    const clearSingleProduct = async () => {
-                                        await DeletingSingleProduct(props.id);
-                                        props.updateCounter(prevState => prevState + 1);
-                                    }
-                                    clearSingleProduct()
-                                }
-                                }
-                            >
-                                Remove From Cart
-                            </button>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </td>
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col items-center space-y-4">
+      <Img
+        src={props.image}
+        alt={props.title}
+        className="w-40 h-40 object-cover rounded-lg border border-slate-200"
+      />
 
-    );
+      <div className="w-full text-center">
+        <h5 className="text-sm font-medium text-slate-900 line-clamp-2">
+          {props.title}
+        </h5>
+      </div>
+
+      <div className="w-full flex flex-col items-center space-y-2">
+        {props.isCart && (
+          <div className="text-sm font-semibold text-slate-700">
+            x {props.count}
+          </div>
+        )}
+
+        <div className="inline-flex items-center justify-center rounded-full bg-slate-900 text-white px-3 py-1 text-sm font-semibold">
+          {props.price}$
+        </div>
+
+        {!props.isCart && (
+          <button
+            className="mt-2 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+            onClick={handleAddToCart}
+          >
+            Add To Cart
+          </button>
+        )}
+
+        {props.isCart && (
+          <button
+            className="mt-2 inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            onClick={handleRemoveFromCart}
+          >
+            Remove From Cart
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default ExpenseItemTable;
-

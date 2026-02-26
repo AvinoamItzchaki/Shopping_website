@@ -1,23 +1,32 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, addDoc, query, getDocs, deleteDoc
-    , where, updateDoc,increment,serverTimestamp} from 'firebase/firestore';
-import {useAuth} from "./AuthContext";
-import "./css/HandleDB.css";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  getDocs,
+  deleteDoc,
+  where,
+  updateDoc,
+  increment,
+  serverTimestamp
+} from 'firebase/firestore';
+import { useAuth } from "./AuthContext";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyARM7hd7DpaD1F3QHnEp5iiA77_SvWqGgY",
-    authDomain: "task3shop.firebaseapp.com",
-    projectId: "task3shop",
-    storageBucket: "task3shop.firebasestorage.app",
-    messagingSenderId: "128266362924",
-    appId: "1:128266362924:web:869e998761eb5453813189",
-    measurementId: "G-816SWHK9N6"
+  apiKey: "AIzaSyARM7hd7DpaD1F3QHnEp5iiA77_SvWqGgY",
+  authDomain: "task3shop.firebaseapp.com",
+  projectId: "task3shop",
+  storageBucket: "task3shop.firebasestorage.app",
+  messagingSenderId: "128266362924",
+  appId: "1:128266362924:web:869e998761eb5453813189",
+  measurementId: "G-816SWHK9N6"
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+getAnalytics(app);
 const db = getFirestore(app);
 
 let collectionName = 'task3store';
@@ -25,14 +34,11 @@ const collectionOfRegisteredPeople = 'RegisteredPeople';
 const collectionOfPurchasedProductsHistory = 'PurchasedProductsHistory';
 const collectionOfProductsFeedback = 'ProductsFeedback';
 
-
 const HandleDB = () => {
-    const {username,setShowOtherPages} = useAuth();
-    collectionName = username;
+  const { username } = useAuth();
+  collectionName = username;
 
-    return (
-       <h className="handle-db"></h>
-    );
+  return <div className="hidden" />;
 };
 
 
