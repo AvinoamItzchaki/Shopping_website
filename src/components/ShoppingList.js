@@ -50,6 +50,9 @@ function ShoppingList() {
                 <ExpensesTable list={list} minPrice={minPrice} maxPrice={maxPrice} category={category} brand={brand}/>
             </div>
             <h1 className="end">קנייה נעימה</h1>
+            <div className="bg-red-500 text-white p-10 text-center font-bold text-3xl">
+                 האם Tailwind עובד? אם אני באדום - התשובה היא כן!
+            </div>
         </div>
     )
 }
