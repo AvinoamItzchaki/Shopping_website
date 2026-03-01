@@ -39,38 +39,37 @@ function ShoppingList() {
           החנות
         </h1>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <section className="w-full lg:w-80 space-y-6">
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="flex-1">
               <PriceFilter
                 list={list}
                 updateMinPrice={setMinPrice}
                 updateMaxPrice={setMaxPrice}
               />
             </div>
-
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 space-y-4">
+            <div className="flex-1">
               <CategoryFilter
                 list={list}
                 updateCategory={setCategory}
                 updateBrand={setBrand}
               />
-              <h2 className="text-lg font-medium text-slate-800 text-right">
-                Hello {username}!
-              </h2>
             </div>
-          </section>
-
-          <section className="flex-1">
-            <ExpensesTable
-              list={list}
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-              category={category}
-              brand={brand}
-            />
-          </section>
+          </div>
+          <h2 className="mt-4 text-lg font-medium text-slate-800 text-right">
+            Hello {username}!
+          </h2>
         </div>
+
+        <section className="mt-6">
+          <ExpensesTable
+            list={list}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            category={category}
+            brand={brand}
+          />
+        </section>
 
         <h1 className="mt-10 text-2xl font-bold text-center text-slate-700">
           קנייה נעימה

@@ -37,74 +37,74 @@ function AdministratorExtension() {
           הרחבה למנהל
         </h1>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <section className="w-full lg:w-80 space-y-6">
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="flex-1">
               <PriceFilter updateMinPrice={setMinPrice} updateMaxPrice={setMaxPrice} />
             </div>
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 space-y-4">
+            <div className="flex-1">
               <CategoryFilter
                 list={listOfProductsHistory}
                 updateCategory={setCategory}
                 updateBrand={setBrand}
               />
-              <h2 className="text-lg font-medium text-slate-800 text-right">
-                Hello {username}!
-              </h2>
             </div>
-          </section>
-
-          <section className="flex-1 space-y-8">
-            <div>
-              <h1 className="text-2xl font-semibold text-slate-900 text-center mb-4">
-                רשימת היסטורית הקניות באתר
-              </h1>
-              <StatisticsExpensesTable
-                list={listOfProductsHistory}
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                category={category}
-                brand={brand}
-                isManager={true}
-              />
-            </div>
-
-            <div>
-              <h1 className="text-2xl font-semibold text-slate-900 text-center mb-4">
-                רשימת האנשים הרשומים באתר
-              </h1>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-slate-200 bg-white rounded-xl shadow-sm border border-slate-200">
-                  <thead className="bg-slate-50">
-                    <tr>
-                      <th className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
-                        שם המשתמש
-                      </th>
-                      <th className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
-                        זמן יצירה
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {listOfRegisteredPeople.map((user, index) => (
-                      <tr
-                        key={index}
-                        className="hover:bg-slate-50 transition"
-                      >
-                        <td className="px-4 py-2 text-sm text-slate-800">
-                          {user.username}
-                        </td>
-                        <td className="px-4 py-2 text-sm text-slate-600">
-                          {user.createdAt.toDate().toLocaleString()}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
+          </div>
+          <h2 className="mt-4 text-lg font-medium text-slate-800 text-right">
+            Hello {username}!
+          </h2>
         </div>
+
+        <section className="mt-6 space-y-8">
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-900 text-center mb-4">
+              רשימת היסטורית הקניות באתר
+            </h1>
+            <StatisticsExpensesTable
+              list={listOfProductsHistory}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              category={category}
+              brand={brand}
+              isManager={true}
+            />
+          </div>
+
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-900 text-center mb-4">
+              רשימת האנשים הרשומים באתר
+            </h1>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 bg-white rounded-xl shadow-sm border border-slate-200">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
+                      שם המשתמש
+                    </th>
+                    <th className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
+                      זמן יצירה
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {listOfRegisteredPeople.map((user, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-slate-50 transition"
+                    >
+                      <td className="px-4 py-2 text-sm text-slate-800">
+                        {user.username}
+                      </td>
+                      <td className="px-4 py-2 text-sm text-slate-600">
+                        {user.createdAt.toDate().toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
         <h1 className="mt-10 text-2xl font-bold text-center text-slate-700">
           שהות נעימה
