@@ -3,6 +3,7 @@ import PriceFilter from "./PriceFilter";
 import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import CategoryFilter from "./CategoryFilter";
+import { GetSiteProducts, SeedSiteProductsFromHistory } from "./HandleDB";
 
 //'https://fakestoreapi.in/api/products'
 //'https://fakestoreapi.com/products'
@@ -18,15 +19,18 @@ function ShoppingList() {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await fetch("https://fakestoreapi.in/api/products", {
-          method: "GET",
-          headers: {},
-        });
-        const result = await response.json();
-        const resultProducts = result.products;
-        setList(resultProducts);
+        let products = await GetSiteProducts();
+
+        // If the catalog is empty, seed it from purchase history once (idempotent).
+        if (!products || products.length === 0) {
+          await SeedSiteProductsFromHistory();
+          products = await GetSiteProducts();
+        }
+
+        setList(products || []);
       } catch (error) {
         console.error("Error fetching data: ", error);
+        setList([]);
       }
     };
     fetchTask();

@@ -33,6 +33,7 @@ let collectionName = 'task3store';
 const collectionOfRegisteredPeople = 'RegisteredPeople';
 const collectionOfPurchasedProductsHistory = 'PurchasedProductsHistory';
 const collectionOfProductsFeedback = 'ProductsFeedback';
+const collectionOfSiteProducts = 'SiteProducts';
 
 const HandleDB = () => {
   const { username } = useAuth();
@@ -119,6 +120,44 @@ const GetItemsOfHistory = async () => {
         ...doc.data()
     }));
     return items;
+}
+
+const GetSiteProducts = async () => {
+    const q = query(collection(db, collectionOfSiteProducts));
+    const querySnapshot = await getDocs(q);
+    const items = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+    return items;
+}
+
+// Idempotent seeding: safe to run multiple times.
+// Copies unique products (by title) from PurchasedProductsHistory into SiteProducts.
+const SeedSiteProductsFromHistory = async () => {
+    const historySnapshot = await getDocs(collection(db, collectionOfPurchasedProductsHistory));
+
+    const seedPromises = historySnapshot.docs.map(async (doc) => {
+        const data = doc.data();
+        if (!data?.title) return;
+
+        const existsQuery = query(
+            collection(db, collectionOfSiteProducts),
+            where('title', '==', data.title)
+        );
+        const existsSnapshot = await getDocs(existsQuery);
+        if (!existsSnapshot.empty) return;
+
+        await addDoc(collection(db, collectionOfSiteProducts), {
+            image: data.image,
+            title: data.title,
+            price: data.price,
+            category: data.category,
+            brand: data.brand
+        });
+    });
+
+    await Promise.all(seedPromises);
 }
 
 const AddFeedbackOnProduct = async (image, title, price, category, brand, isLike) => {
@@ -303,7 +342,9 @@ export {
     AddItemToDB, GetItems, ClearCollection, DeletingSingleProduct, AddRegistered,
     CheckLogin, HandleDB, GetMoneyAmount, SetMoneyAmount, ReduceMoneyAmount,
     SavePurchasedItemsToHistory,AddPurchasedItemToHistory,GetItemsOfHistory,GetRegisteredPeople,AddFeedbackOnProduct,
-    GetItemsOfFeedbackProducts
+    GetItemsOfFeedbackProducts,
+    GetSiteProducts,
+    SeedSiteProductsFromHistory
 };
 
 

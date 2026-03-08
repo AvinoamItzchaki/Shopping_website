@@ -47,7 +47,8 @@ function RegistrationForm() {
       if (
         usernameValue === "RegisteredPeople" ||
         usernameValue === "PurchasedProductsHistory" ||
-        usernameValue === "ProductsFeedback"
+        usernameValue === "ProductsFeedback" ||
+        usernameValue === "SiteProducts"
       ) {
         return "registration-disallowed-username";
       }
