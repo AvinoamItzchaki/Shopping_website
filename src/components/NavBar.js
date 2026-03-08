@@ -10,10 +10,10 @@ function NavBar() {
   };
 
   const baseLinkClasses =
-    "inline-flex items-center rounded-xl px-3 py-1.5 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition";
+    "inline-flex items-center rounded-xl px-3 py-1.5 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2";
 
   return (
-    <nav className="bg-white border-b border-slate-200">
+    <nav className="bg-white border-b border-slate-200" aria-label="Primary">
       <div className="max-w-6xl mx-auto px-4">
         <ul className="flex items-center gap-3 py-3">
           {showOtherPages === "true" && (
@@ -52,8 +52,9 @@ function NavBar() {
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={logout}
-                  className="inline-flex items-center rounded-xl bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-800 transition"
+                  className="inline-flex items-center rounded-xl bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-800 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
                 >
                   Exit
                 </button>

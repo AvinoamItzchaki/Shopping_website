@@ -52,12 +52,14 @@ function PriceFilter(props) {
 
       <div className="flex gap-3">
         <button
+          type="button"
           className={`${baseButton} bg-slate-900 text-white hover:bg-slate-800`}
           onClick={applyFilterProducts}
         >
           Filter Products
         </button>
         <button
+          type="button"
           className={`${baseButton} bg-white text-slate-900 border border-slate-300 hover:bg-slate-50`}
           onClick={applyBackToNormal}
         >

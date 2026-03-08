@@ -57,13 +57,17 @@ function FeedbacksExpenseItemTable(props) {
 
         <div className="flex items-center justify-center gap-4">
           <button
+            type="button"
             onClick={handleLike}
+            aria-label={`אהבתי: ${props.title}`}
             className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-3 py-2 text-lg text-white hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
           >
             👍
           </button>
           <button
+            type="button"
             onClick={handleDislike}
+            aria-label={`לא אהבתי: ${props.title}`}
             className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-3 py-2 text-lg text-white hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
           >
             👎

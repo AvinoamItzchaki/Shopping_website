@@ -27,6 +27,16 @@ function LoginForm() {
     setAlert(await SetMoneyAmount(moneyAmount));
   };
 
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    await loginAction();
+  };
+
+  const handleMoneySubmit = async (event) => {
+    event.preventDefault();
+    await updateMoneyAmount();
+  };
+
   useEffect(() => {
     const fetchMoneyAmount = async () => {
       if (alert === "login-success") {
@@ -55,19 +65,19 @@ function LoginForm() {
       <div className="max-w-md mx-auto px-4 py-12" dir="rtl">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 px-6 py-8">
           {alert === "login-danger-username" && (
-            <div className={alertDanger}>
+            <div className={alertDanger} role="alert">
               <h3 className="font-semibold mb-1">Danger</h3>
               <p>לא קיים שם משתמש כזה במערכת</p>
             </div>
           )}
           {alert === "login-danger-password" && (
-            <div className={alertDanger}>
+            <div className={alertDanger} role="alert">
               <h3 className="font-semibold mb-1">Danger</h3>
               <p>סיסמה שגויה</p>
             </div>
           )}
           {alert === "login-success" && (
-            <div className={alertSuccess}>
+            <div className={alertSuccess} role="status" aria-live="polite">
               <h3 className="font-semibold mb-1">Well done!</h3>
               <p>ההתחברות עברה בהצלחה, שהות נעימה</p>
               <p>אם תרצה תוכל להוסיף כסף לחשבון הבנק שלך על ידי התוית שנפתחה למטה</p>
@@ -75,7 +85,7 @@ function LoginForm() {
             </div>
           )}
           {alert === "updateMoneyAmount-success" && (
-            <div className={alertSuccess}>
+            <div className={alertSuccess} role="status" aria-live="polite">
               <h3 className="font-semibold mb-1">Well done!</h3>
               <p>הוספת הכסף לחשבון עברה בהצלחה, שהות נעימה.</p>
             </div>
@@ -86,15 +96,16 @@ function LoginForm() {
           </h1>
 
           {alert !== "login-success" && alert !== "updateMoneyAmount-success" && (
-            <>
+            <form onSubmit={handleLoginSubmit}>
               <label className="block mb-4">
-                <h3 className="text-sm font-medium text-slate-800 mb-1">
+                <span className="text-sm font-medium text-slate-800 mb-1 block">
                   שם משתמש:
-                </h3>
+                </span>
                 <input
                   type="text"
                   name="username"
                   aria-describedby="usernameHelp"
+                  autoComplete="username"
                   placeholder="Enter username"
                   value={username}
                   onChange={handleUsernameChange}
@@ -109,12 +120,13 @@ function LoginForm() {
               </label>
 
               <label className="block mb-4">
-                <h3 className="text-sm font-medium text-slate-800 mb-1">
+                <span className="text-sm font-medium text-slate-800 mb-1 block">
                   סיסמה:
-                </h3>
+                </span>
                 <input
                   type="password"
                   name="password"
+                  autoComplete="current-password"
                   placeholder="Password"
                   value={password}
                   onChange={handlePasswordChange}
@@ -122,46 +134,44 @@ function LoginForm() {
                 />
               </label>
 
-              <button
-                type="button"
-                className={primaryButton}
-                onClick={loginAction}
-              >
+              <button type="submit" className={primaryButton}>
                 Submit
               </button>
-            </>
+            </form>
           )}
 
           {alert === "login-success" && (
             <div className="mt-6 text-right space-y-4">
-              <h1 className="text-sm text-slate-800">
+              <p className="text-sm text-slate-800">
                 סכום הכסף בחשבון כרגע {initialAmountOfMoney}.
-              </h1>
-              <h1 className="text-sm text-slate-800">
+              </p>
+              <p className="text-sm text-slate-800">
                 לאחר ההוספה הסכום יהיה: {sum}
-              </h1>
+              </p>
 
-              <label className="block">
-                <h3 className="text-sm font-medium text-slate-800 mb-1">
-                  סכום הכסף להכניס לחשבון
-                </h3>
-                <input
-                  type="number"
-                  name="moneyAmount"
-                  placeholder="moneyAmount"
-                  value={moneyAmount}
-                  onChange={handleMoneyAmountChange}
-                  className={inputClasses}
-                />
-              </label>
+              <form onSubmit={handleMoneySubmit}>
+                <label className="block">
+                  <span className="text-sm font-medium text-slate-800 mb-1 block">
+                    סכום הכסף להכניס לחשבון
+                  </span>
+                  <input
+                    type="number"
+                    name="moneyAmount"
+                    inputMode="decimal"
+                    placeholder="moneyAmount"
+                    value={moneyAmount}
+                    onChange={handleMoneyAmountChange}
+                    className={inputClasses}
+                  />
+                </label>
 
-              <button
-                type="button"
-                className={primaryButton + " mt-3"}
-                onClick={updateMoneyAmount}
-              >
-                אישור ההוספה
-              </button>
+                <button
+                  type="submit"
+                  className={primaryButton + " mt-3"}
+                >
+                  אישור ההוספה
+                </button>
+              </form>
             </div>
           )}
         </div>

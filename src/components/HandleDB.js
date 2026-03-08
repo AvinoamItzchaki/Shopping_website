@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import {
   getFirestore,
   collection,
@@ -26,7 +26,15 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-getAnalytics(app);
+isSupported()
+  .then((supported) => {
+    if (supported) {
+      getAnalytics(app);
+    }
+  })
+  .catch(() => {
+    // Analytics is optional; ignore unsupported environments (e.g., tests).
+  });
 const db = getFirestore(app);
 
 let collectionName = 'task3store';

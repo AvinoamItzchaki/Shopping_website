@@ -24,6 +24,11 @@ function RegistrationForm() {
     }
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await registrationAction();
+  };
+
   useEffect(() => {
     if (alert === "registration-success") {
       setShowOtherPages("true");
@@ -36,7 +41,10 @@ function RegistrationForm() {
         return "registration-invalid-start-letter";
       }
 
-      if (!/^[A-Za-z0-9!@#$%^&*()_\-+=\[\]{}|;:'",.<>?/`~]*$/.test(usernameValue)) {
+      const allowedUsernameRegex = new RegExp(
+        "^[A-Za-z0-9!@#$%^&*()_\\-+=\\[\\]{}|;:'\",.<>?/`~]*$"
+      );
+      if (!allowedUsernameRegex.test(usernameValue)) {
         return "registration-invalid-characters";
       }
 
@@ -80,37 +88,37 @@ function RegistrationForm() {
       <div className="max-w-md mx-auto px-4 py-12" dir="rtl">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 px-6 py-8">
           {alert === "registration-warning-username" && (
-            <div className={alertWarning}>
+            <div className={alertWarning} role="alert">
               <h3 className="font-semibold mb-1">Warning</h3>
               <p>קיים כבר שם משתמש כזה במערכת, אנא שנה את שם המשתמש שלך לשם אחר</p>
             </div>
           )}
           {alert === "registration-success" && (
-            <div className={alertSuccess}>
+            <div className={alertSuccess} role="status" aria-live="polite">
               <h3 className="font-semibold mb-1">Well done!</h3>
               <p>נרשמת לאתר, בהצלחה</p>
             </div>
           )}
           {alert === "registration-too-short" && (
-            <div className={alertLight}>
+            <div className={alertLight} role="alert">
               <h3 className="font-semibold mb-1">Warning</h3>
               <p>שם המשתמש צריך להכיל יותר מ4 תווים</p>
             </div>
           )}
           {alert === "registration-invalid-characters" && (
-            <div className={alertInfo}>
+            <div className={alertInfo} role="alert">
               <h3 className="font-semibold mb-1">Warning</h3>
               <p>הקלד בשם המשתמש רק אותיות באנגלית, מספרים או סימנים מיוחדים (ללא רווחים)</p>
             </div>
           )}
           {alert === "registration-invalid-start-letter" && (
-            <div className={alertInfo}>
+            <div className={alertInfo} role="alert">
               <h3 className="font-semibold mb-1">Warning</h3>
               <p>שם המשתמש צריך להתחיל עם אות באנגלית</p>
             </div>
           )}
           {alert === "registration-disallowed-username" && (
-            <div className={alertLight}>
+            <div className={alertLight} role="alert">
               <h3 className="font-semibold mb-1">Warning</h3>
               <p>נסה להקליד שם משתמש אחר</p>
             </div>
@@ -127,56 +135,63 @@ function RegistrationForm() {
             <p>בשם המשתמש חייב שיהיה מעל 4 תווים.</p>
           </div>
 
-          <label className="block mb-4">
-            <h3 className="text-sm font-medium text-slate-800 mb-1">
-              שם משתמש:
-            </h3>
-            <input
-              type="text"
-              name="username"
-              aria-describedby="usernameHelp"
-              placeholder="Enter username"
-              value={username}
-              onChange={handleUsernameChange}
-              className={inputClasses}
-            />
-          </label>
+          <form onSubmit={handleSubmit}>
+            <label className="block mb-4">
+              <span className="text-sm font-medium text-slate-800 mb-1 block">
+                שם משתמש:
+              </span>
+              <input
+                type="text"
+                name="username"
+                aria-describedby="usernameHelp"
+                autoComplete="username"
+                placeholder="Enter username"
+                value={username}
+                onChange={handleUsernameChange}
+                className={inputClasses}
+              />
+              <small
+                id="usernameHelp"
+                className="mt-1 block text-xs text-slate-500"
+              >
+                שם המשתמש צריך להיכתב עם אותיות באנגלית, מספרים או סימנים מיוחדים (ללא רווחים)
+              </small>
+            </label>
 
-          <label className="block mb-4">
-            <h3 className="text-sm font-medium text-slate-800 mb-1">
-              סיסמה:
-            </h3>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-              className={inputClasses}
-            />
-          </label>
+            <label className="block mb-4">
+              <span className="text-sm font-medium text-slate-800 mb-1 block">
+                סיסמה:
+              </span>
+              <input
+                type="password"
+                name="password"
+                autoComplete="new-password"
+                placeholder="Password"
+                value={password}
+                onChange={handlePasswordChange}
+                className={inputClasses}
+              />
+            </label>
 
-          <label className="block mb-4">
-            <h3 className="text-sm font-medium text-slate-800 mb-1">
-              כמות כסף התחלתית להכניס לחשבון:
-            </h3>
-            <input
-              type="number"
-              name="moneyAmount"
-              placeholder="moneyAmount"
-              value={moneyAmount}
-              onChange={handleMoneyAmountChange}
-              className={inputClasses}
-            />
-          </label>
+            <label className="block mb-4">
+              <span className="text-sm font-medium text-slate-800 mb-1 block">
+                כמות כסף התחלתית להכניס לחשבון:
+              </span>
+              <input
+                type="number"
+                name="moneyAmount"
+                inputMode="decimal"
+                placeholder="moneyAmount"
+                value={moneyAmount}
+                onChange={handleMoneyAmountChange}
+                className={inputClasses}
+              />
+            </label>
 
-          <button
-            type="button"
-            className={primaryButton}
-            onClick={registrationAction}
-          >
-            Submit
-          </button>
+            <button type="submit" className={primaryButton}>
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>

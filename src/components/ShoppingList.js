@@ -75,9 +75,9 @@ function ShoppingList() {
           />
         </section>
 
-        <h1 className="mt-10 text-2xl font-bold text-center text-slate-700">
+        <h2 className="mt-10 text-2xl font-bold text-center text-slate-700">
           קנייה נעימה
-        </h1>
+        </h2>
       </div>
     </div>
   );

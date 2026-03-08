@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders skip link and login heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(
+    screen.getByRole('link', { name: /skip to main content/i })
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole('heading', { name: /התחברות לאתר/i })
+  ).toBeInTheDocument();
 });

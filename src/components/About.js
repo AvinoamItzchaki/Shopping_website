@@ -11,9 +11,9 @@ function About() {
             שלום וברכה למשתמש {username}!
           </h1>
 
-          <h1 className="text-3xl font-bold bg-gradient-to-b from-slate-700 to-slate-900 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-b from-slate-700 to-slate-900 bg-clip-text text-transparent">
             בילוי נעים באתר!
-          </h1>
+          </h2>
         </div>
       </div>
     </div>

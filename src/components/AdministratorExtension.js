@@ -57,9 +57,9 @@ function AdministratorExtension() {
 
         <section className="mt-6 space-y-8">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900 text-center mb-4">
+            <h2 className="text-2xl font-semibold text-slate-900 text-center mb-4">
               רשימת היסטורית הקניות באתר
-            </h1>
+            </h2>
             <StatisticsExpensesTable
               list={listOfProductsHistory}
               minPrice={minPrice}
@@ -71,17 +71,20 @@ function AdministratorExtension() {
           </div>
 
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900 text-center mb-4">
+            <h2 className="text-2xl font-semibold text-slate-900 text-center mb-4">
               רשימת האנשים הרשומים באתר
-            </h1>
+            </h2>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200 bg-white rounded-xl shadow-sm border border-slate-200">
+                <caption className="sr-only">
+                  רשימת האנשים הרשומים באתר
+                </caption>
                 <thead className="bg-slate-50">
                   <tr>
-                    <th className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
+                    <th scope="col" className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
                       שם המשתמש
                     </th>
-                    <th className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
+                    <th scope="col" className="px-4 py-2 text-right text-xs font-semibold text-slate-700">
                       זמן יצירה
                     </th>
                   </tr>
@@ -106,9 +109,9 @@ function AdministratorExtension() {
           </div>
         </section>
 
-        <h1 className="mt-10 text-2xl font-bold text-center text-slate-700">
+        <h2 className="mt-10 text-2xl font-bold text-center text-slate-700">
           שהות נעימה
-        </h1>
+        </h2>
       </div>
     </div>
   );

@@ -81,6 +81,7 @@ function HandleCartProducts(props) {
 
             <div className="flex justify-end gap-3 pt-4">
               <button
+                type="button"
                 className={primaryButtonClasses}
                 onClick={() => {
                   const purchase = async () => {
@@ -96,6 +97,7 @@ function HandleCartProducts(props) {
                 קניית העגלה
               </button>
               <button
+                type="button"
                 className={secondaryButtonClasses}
                 onClick={() => {
                   const clear = async () => {

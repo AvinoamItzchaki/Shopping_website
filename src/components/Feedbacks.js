@@ -52,29 +52,30 @@ function Feedbacks() {
 
         <section className="mt-6 space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-3">
-            <h1 className="text-right text-slate-700">
+            <p className="text-right text-slate-700">
               כאן תוכל לסמן האם אהבת את אחד מהמוצרים או פחות על ידי הכפתורים.
-            </h1>
-            <h1 className="text-right text-slate-700">
+            </p>
+            <p className="text-right text-slate-700">
               תוכל לבחור מוצר לסמן עליו לפי: טווח מחירים, קטגוריה ומותג.
-            </h1>
-            <h1 className="text-right text-slate-700">
+            </p>
+            <p className="text-right text-slate-700">
               בנוסף תוכל לסמן כמה שתרצה על כל מוצר לפי תחושתך.
-            </h1>
+            </p>
 
-            <label className="flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-4">
               <button
+                type="button"
                 onClick={handleClickIsFavorite}
-                className={`inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-white transition ${
+                className={`inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-white transition focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 ${
                   isFavorite ? "bg-slate-900 hover:bg-slate-800" : "bg-rose-600 hover:bg-rose-500"
                 }`}
               >
                 {isFavorite ? "מוצרים אהובים" : "מוצרים פחות אהובים"}
               </button>
-              <h1 className="text-lg font-medium text-slate-800">
+              <h2 className="text-lg font-medium text-slate-800">
                 :סינון לפי
-              </h1>
-            </label>
+              </h2>
+            </div>
           </div>
 
           <FeedbacksExpensesTable
@@ -87,9 +88,9 @@ function Feedbacks() {
           />
         </section>
 
-        <h1 className="mt-10 text-2xl font-bold text-center text-slate-700">
+        <h2 className="mt-10 text-2xl font-bold text-center text-slate-700">
           שהות נעימה
-        </h1>
+        </h2>
       </div>
     </div>
   );

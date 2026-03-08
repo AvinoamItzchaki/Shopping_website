@@ -47,12 +47,12 @@ function Statistics() {
 
         <section className="mt-6 space-y-6">
           <div className="space-y-2">
-            <h1 className="text-right text-lg text-slate-700">
+            <p className="text-right text-lg text-slate-700">
               נבחר המותג וגם הקטגוריה בין המחירים שבחרת ובהם:
-            </h1>
-            <h1 className="text-center text-2xl font-semibold text-slate-900">
+            </p>
+            <h2 className="text-center text-2xl font-semibold text-slate-900">
               שלושת המוצרים הכי נמכרים
-            </h1>
+            </h2>
             <StatisticsExpensesTable
               list={list}
               minPrice={minPrice}
@@ -65,9 +65,9 @@ function Statistics() {
           </div>
 
           <div className="space-y-2">
-            <h1 className="text-center text-2xl font-semibold text-slate-900">
+            <h2 className="text-center text-2xl font-semibold text-slate-900">
               שלושת המוצרים הכי פחות נמכרים
-            </h1>
+            </h2>
             <StatisticsExpensesTable
               list={list}
               minPrice={minPrice}
@@ -80,9 +80,9 @@ function Statistics() {
           </div>
         </section>
 
-        <h1 className="mt-10 text-2xl font-bold text-center text-slate-700">
+        <h2 className="mt-10 text-2xl font-bold text-center text-slate-700">
           שהות נעימה
-        </h1>
+        </h2>
       </div>
     </div>
   );
