@@ -16,13 +16,13 @@ import {
 import { useAuth } from "./AuthContext";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyARM7hd7DpaD1F3QHnEp5iiA77_SvWqGgY",
-  authDomain: "task3shop.firebaseapp.com",
-  projectId: "task3shop",
-  storageBucket: "task3shop.firebasestorage.app",
-  messagingSenderId: "128266362924",
-  appId: "1:128266362924:web:869e998761eb5453813189",
-  measurementId: "G-816SWHK9N6"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
