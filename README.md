@@ -58,7 +58,7 @@ A full-featured e-commerce web application built with React and Firebase. Users 
    REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
    ```
 
-5. **Configure Firestore rules** — See [FIRESTORE_RULES_SETUP.md](./FIRESTORE_RULES_SETUP.md) for setup instructions.
+5. **Configure Firestore rules** — In Firebase Console → Firestore Database → Rules, configure rules to allow your app to read/write (or use Firebase Authentication for production).
 
 ## Usage
 
